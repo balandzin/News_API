@@ -9,7 +9,7 @@ import UIKit
 
 final class CollectionViewCell: UICollectionViewCell {
     var tap: ((UIImage) -> Void)?
-    private var imageView = UIImageView(image: UIImage(systemName: "person"))
+    private var imageView = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,6 +25,8 @@ final class CollectionViewCell: UICollectionViewCell {
     private func setupViews() {
         addSubview(imageView)
         setupConstraints()
+        
+        imageView.downloadDogImage()
     }
     
     private func setupConstraints() {
@@ -39,5 +41,10 @@ final class CollectionViewCell: UICollectionViewCell {
     
     @objc func cellTap() {
         tap?(imageView.image ?? UIImage())
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
     }
 }

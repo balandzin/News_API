@@ -29,3 +29,16 @@ class CollectionViewController: UICollectionViewController {
         return cell
     }
 }
+
+extension CollectionViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        let width = UIScreen.main.bounds.width
+        let cellSize = width / 2 - 20
+        return CGSize(width: cellSize, height: cellSize)
+    }
+}
