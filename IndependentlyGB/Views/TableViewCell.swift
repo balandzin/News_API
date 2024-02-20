@@ -55,8 +55,33 @@ final class TableViewCell: UITableViewCell {
         setupViews()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        text1.text = nil
+        text2.text = nil
+        text3.text = nil
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupColor(lat: Double?, lon: Double?) {
+        guard let lat, let lon else {
+            circle.backgroundColor = .gray
+            return
+        }
+        if lat + lon < 100 {
+            circle.backgroundColor = .blue
+        } else {
+            circle.backgroundColor = .purple
+        }
+    }
+    
+    func setupTexts(town: TownModel) {
+        text1.text = town.name
+        text2.text = town.timezone
+        text3.text = town.currency
     }
     
     
@@ -87,5 +112,7 @@ final class TableViewCell: UITableViewCell {
             
         ])
     }
+    
+    
 
 }

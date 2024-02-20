@@ -8,9 +8,13 @@
 import Foundation
 
 final class NetworkService {
+    static let shared = NetworkService()
+    
     private let session = URLSession.shared
     
-    func getData() {
+    private init() {}
+    
+    func getData(completion: @escaping (([TownModel]) -> Void)) {
         let url = URL(string: "https://kudago.com/public-api/v1.2/locations/?lang=ru&fields=timezone,name,currency,coords")
         
         guard let url else { return }
@@ -21,6 +25,7 @@ final class NetworkService {
             
             do {
                 let towns = try JSONDecoder().decode([TownModel].self, from: data)
+                completion(towns)
                 print(towns)
             } catch {
                 print(error)
